@@ -194,13 +194,16 @@ class GMVAE:
       for data, labels in data_loader:
         if self.cuda == 1:
           data = data.cuda()
+          labels = labels.cuda()
       
         # flatten data
         data = data.view(data.size(0), -1)
+        # flatten labels
+        labels = labels.view(-1)
 
         # forward call
         out_net = self.network(data, self.gumbel_temp, self.hard_gumbel) 
-        unlab_loss_dic = self.unlabeled_loss(data, out_net)  
+        unlab_loss_dic = self.unlabeled_loss(data, labels, out_net)  
 
         # accumulate values
         total_loss += unlab_loss_dic['total'].item()
