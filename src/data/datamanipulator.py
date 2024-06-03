@@ -30,7 +30,7 @@ class DataManipulator:
 
         # data_x = np.zeros((1,preprocess['length'],preprocess['n_channel']))
         data_x = np.zeros((1,n_length,n_dim))
-        data_y = np.zeros((1,1))
+        data_y = np.zeros(1,dtype=int)
 
         # self.data = data
         # self.labels = labels
@@ -46,8 +46,8 @@ class DataManipulator:
                 category = 'extracted/{:.1f}Hz'.format(cutoff)
 
 
-                # data_path = f'../../data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
-                data_path = f'data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
+                data_path = f'../../data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
+                # data_path = f'data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
                
                 # fname = make_read_path(data_name, category, sub+1, c+1, trial_set[t] + 1)
 
@@ -57,11 +57,11 @@ class DataManipulator:
                 read_data = read_data[::down_sampling_rate]
                 read_data = read_data.reshape(-1, n_length, n_dim)
 
-                label = np.full(len(read_data), c, dtype='int8')
-                label = label.reshape(-1,1)
+                label = np.full(len(read_data), c, dtype=int)
+                # label = label.reshape(-1,1)
 
                 data_x = np.concatenate((data_x, read_data), axis=0)
-                data_y = np.concatenate((data_y, label), axis=0)
+                data_y = np.hstack((data_y, label))
         
         self.data_x = data_x[1:].astype(np.float64)
         self.data_y = data_y[1:].astype(np.int8)

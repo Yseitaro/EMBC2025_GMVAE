@@ -118,14 +118,14 @@ class GMVAE:
     for (data, labels) in data_loader:
       if self.cuda == 1:
         data = data.cuda()
-        labels = labels.cuda()
+        labels = labels.to(torch.int64).cuda()
 
       optimizer.zero_grad()
 
       # flatten data
       data = data.view(data.size(0), -1)
       # flatten labels
-      true_labels = labels.view(-1)
+      # true_labels = labels.view(-1)
       
       # forward call
       out_net = self.network(data, self.gumbel_temp, self.hard_gumbel) 
@@ -194,12 +194,12 @@ class GMVAE:
       for data, labels in data_loader:
         if self.cuda == 1:
           data = data.cuda()
-          labels = labels.cuda()
+          labels = labels.to(torch.int64).cuda()
       
         # flatten data
         data = data.view(data.size(0), -1)
         # flatten labels
-        labels = labels.view(-1)
+        # labels = labels.view(-1)
 
         # forward call
         out_net = self.network(data, self.gumbel_temp, self.hard_gumbel) 
