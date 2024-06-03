@@ -46,7 +46,8 @@ class DataManipulator:
                 category = 'extracted/{:.1f}Hz'.format(cutoff)
 
 
-                data_path = f'../../data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
+                # data_path = f'../../data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
+                data_path = f'data/{data_name}/{category}/sub{sub}/class{c+1}trial{t+1}.csv'
                
                 # fname = make_read_path(data_name, category, sub+1, c+1, trial_set[t] + 1)
 

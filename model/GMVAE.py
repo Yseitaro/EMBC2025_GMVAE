@@ -14,6 +14,7 @@ from networks.Networks import *
 from losses.LossFunctions import *
 from metrics.Metrics import *
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
 
 class GMVAE:
 
@@ -117,6 +118,7 @@ class GMVAE:
     for (data, labels) in data_loader:
       if self.cuda == 1:
         data = data.cuda()
+        labels = labels.cuda()
 
       optimizer.zero_grad()
 
@@ -158,7 +160,7 @@ class GMVAE:
     predicted_labels = torch.cat(predicted_labels_list, dim=0).cpu().numpy()
 
     # compute metrics
-    accuracy = 100.0 * self.metrics.cluster_acc(predicted_labels, true_labels)
+    accuracy = 100.0 * accuracy_score(predicted_labels, true_labels)
     nmi = 100.0 * self.metrics.nmi(predicted_labels, true_labels)
 
     return total_loss, recon_loss, gauss_loss, cat_loss, accuracy, nmi
