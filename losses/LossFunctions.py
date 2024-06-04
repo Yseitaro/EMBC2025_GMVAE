@@ -105,6 +105,7 @@ class LossFunctions:
                                 of all the sample losses or an array with the losses per sample
       """
       targets = F.one_hot(targets, num_classes=logits.size(-1))
+      targets = targets.float()
       log_q = F.log_softmax(logits, dim=-1)
       return -torch.mean(torch.sum(targets * log_q, dim=-1))
 
