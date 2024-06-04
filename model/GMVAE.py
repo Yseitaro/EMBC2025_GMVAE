@@ -129,7 +129,7 @@ class GMVAE:
       
       # forward call
       out_net = self.network(data, self.gumbel_temp, self.hard_gumbel) 
-      unlab_loss_dic = self.unlabeled_loss(data, true_labels, out_net) 
+      unlab_loss_dic = self.unlabeled_loss(data, labels, out_net) 
       total = unlab_loss_dic['total']
 
       # accumulate values
